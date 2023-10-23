@@ -22,7 +22,7 @@ function _aws_clear_state() {
 }
 
 # AWS profile selection
-function asp() {
+function awsp() {
   if [[ -z "$1" ]]; then
     unset AWS_DEFAULT_PROFILE AWS_PROFILE AWS_EB_PROFILE AWS_PROFILE_REGION
     _aws_clear_state
@@ -190,7 +190,7 @@ function aws_change_access_key() {
   # Get current access key
   local original_aws_access_key_id="$(aws configure get aws_access_key_id --profile $profile)"
 
-  asp "$profile" || return 1
+  awsp "$profile" || return 1
   echo "Generating a new access key pair for you now."
   if aws --no-cli-pager iam create-access-key; then
     echo "Insert the newly generated credentials when asked."
@@ -252,7 +252,7 @@ compctl -K _aws_regions asr
 function _aws_profiles() {
   reply=($(aws_profiles))
 }
-compctl -K _aws_profiles asp acp aws_change_access_key
+compctl -K _aws_profiles awsp acp aws_change_access_key
 
 # AWS prompt
 function aws_prompt_info() {
