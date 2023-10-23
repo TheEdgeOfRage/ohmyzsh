@@ -289,23 +289,6 @@ alias glum='git pull upstream $(git_main_branch)'
 alias gp='git push'
 alias gpd='git push --dry-run'
 
-function ggf() {
-  [[ "$#" != 1 ]] && local b="$(git_current_branch)"
-  git push --force origin "${b:=$1}"
-}
-compdef _git ggf=git-checkout
-
-alias gpf!='git push --force'
-is-at-least 2.30 "$git_version" \
-  && alias gpf='git push --force-with-lease --force-if-includes' \
-  || alias gpf='git push --force-with-lease'
-
-function ggfl() {
-  [[ "$#" != 1 ]] && local b="$(git_current_branch)"
-  git push --force-with-lease origin "${b:=$1}"
-}
-compdef _git ggfl=git-checkout
-
 alias gpsup='git push --set-upstream origin $(git_current_branch)'
 is-at-least 2.30 "$git_version" \
   && alias gpsupf='git push --set-upstream origin $(git_current_branch) --force-with-lease --force-if-includes' \
